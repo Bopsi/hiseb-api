@@ -24,7 +24,7 @@ public class TagService {
 	public void update(long id, Tag tag) throws Exception {
 		Tag _tag = this.tagRepository.findById(id).get();
 		if (_tag != null) {
-			this.tagRepository.save(null);
+			this.tagRepository.save(tag);
 		} else {
 			throw new Exception("Tag does not exist");
 		}

@@ -22,22 +22,22 @@ public class TagController {
 	@Autowired
 	private TagService tagService;
 
-	@GetMapping("/all")
+	@GetMapping("")
 	List<Tag> getAll() {
 		return this.tagService.read();
 	}
 	
-	@PostMapping("/")
+	@PostMapping("")
 	void save(@RequestBody Tag tag) {
 		this.tagService.create(tag);
 	}
 
-	@PutMapping("/:id")
+	@PutMapping("/{id}")
 	void update(@PathVariable(name = "id") long id, @RequestBody Tag tag) throws Exception {
 		this.tagService.update(id, tag);
 	}
 
-	@DeleteMapping("/:id")
+	@DeleteMapping("/{id}")
 	void update(@PathVariable(name = "id") long id) throws Exception {
 		this.tagService.delete(id);
 	}
