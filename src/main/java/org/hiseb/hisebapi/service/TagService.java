@@ -10,10 +10,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class TagService {
 	
-	TagService(){
-		System.out.println("TagService injecttion ->" + this.tagRepository);
-	}
-	
 	@Autowired
 	private TagRepository tagRepository;
 

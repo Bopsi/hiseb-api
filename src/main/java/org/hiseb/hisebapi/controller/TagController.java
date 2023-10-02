@@ -18,9 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/tags")
 public class TagController {
-	TagController(){
-		System.out.println("TagController injecttion ->" + this.tagService);
-	}
 	
 	@Autowired
 	private TagService tagService;
