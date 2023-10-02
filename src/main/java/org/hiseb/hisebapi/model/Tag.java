@@ -8,13 +8,13 @@ import javax.persistence.Id;
 
 @Entity
 public class Tag {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@Column
-	private String value;
+	private String label;
 
 	@Column
 	private String background;
@@ -30,12 +30,12 @@ public class Tag {
 		this.id = id;
 	}
 
-	public String getValue() {
-		return value;
+	public String getLabel() {
+		return label;
 	}
 
-	public void setValue(String value) {
-		this.value = value;
+	public void setLabel(String label) {
+		this.label = label;
 	}
 
 	public String getBackground() {

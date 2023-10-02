@@ -1,6 +1,0 @@
-CREATE TABLE IF NOT EXISTS `Tags` (
-    id			INTEGER  PRIMARY KEY AUTO_INCREMENT,
-    value		VARCHAR(50) NOT NULL,
-    background	VARCHAR(10) NOT NULL,
-    font		VARCHAR(10) NOT NULL,	
-);
