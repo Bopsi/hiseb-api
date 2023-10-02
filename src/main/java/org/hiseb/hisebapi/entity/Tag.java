@@ -1,4 +1,4 @@
-package org.hiseb.hisebapi.model;
+package org.hiseb.hisebapi.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

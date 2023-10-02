@@ -2,8 +2,8 @@ package org.hiseb.hisebapi.controller;
 
 import java.util.List;
 
-import org.hiseb.hisebapi.entity.Tag;
-import org.hiseb.hisebapi.service.TagService;
+import org.hiseb.hisebapi.entity.Category;
+import org.hiseb.hisebapi.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,30 +16,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/tags")
-public class TagController {
+@RequestMapping("/categories")
+public class CategoryController {
 	
 	@Autowired
-	private TagService tagService;
+	private CategoryService categoryService;
 
 	@GetMapping("")
-	List<Tag> getAll() {
-		return this.tagService.read();
+	List<Category> getAll() {
+		return this.categoryService.read();
 	}
 	
 	@PostMapping("")
-	void save(@RequestBody Tag tag) {
-		this.tagService.create(tag);
+	void save(@RequestBody Category category) {
+		this.categoryService.create(category);
 	}
 
 	@PutMapping("/{id}")
-	void update(@PathVariable(name = "id") long id, @RequestBody Tag tag) throws Exception {
-		this.tagService.update(id, tag);
+	void update(@PathVariable(name = "id") long id, @RequestBody Category category) throws Exception {
+		this.categoryService.update(id, category);
 	}
 
 	@DeleteMapping("/{id}")
 	void update(@PathVariable(name = "id") long id) throws Exception {
-		this.tagService.delete(id);
+		this.categoryService.delete(id);
 	}
 	
 	@GetMapping("/test")

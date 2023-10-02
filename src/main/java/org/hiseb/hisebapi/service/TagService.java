@@ -2,7 +2,7 @@ package org.hiseb.hisebapi.service;
 
 import java.util.List;
 
-import org.hiseb.hisebapi.model.Tag;
+import org.hiseb.hisebapi.entity.Tag;
 import org.hiseb.hisebapi.repo.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
