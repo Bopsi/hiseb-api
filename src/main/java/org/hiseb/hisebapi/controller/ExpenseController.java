@@ -3,9 +3,12 @@ package org.hiseb.hisebapi.controller;
 import java.util.List;
 
 import org.hiseb.hisebapi.entity.Expense;
+import org.hiseb.hisebapi.model.ApiError;
 import org.hiseb.hisebapi.service.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,31 +27,61 @@ public class ExpenseController {
 	private ExpenseService expenseService;
 
 	@GetMapping("")
-	List<Expense> getAll() {
-		return this.expenseService.read();
+	ResponseEntity<Object> getAll() {
+		try {
+			List<Expense> list = this.expenseService.read();
+			return ResponseEntity.ok().body(list);
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError()
+					.body(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage()));
+		}
 	}
 
 	@PostMapping("")
-	void save(@RequestBody Expense expense) {
-		this.expenseService.create(expense);
+	ResponseEntity<Object> save(@RequestBody Expense expense) {
+		try {
+			this.expenseService.create(expense);
+			return ResponseEntity.ok().body(HttpStatus.OK);
+		} catch (DataIntegrityViolationException e) {
+			return ResponseEntity.internalServerError().body(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR,
+					"Either Label or Background and Font already exists"));
+		}
 	}
 
 	@PutMapping("/{id}")
-	void update(@PathVariable(name = "id") long id, @RequestBody Expense expense) throws Exception {
-		this.expenseService.update(id, expense);
+	ResponseEntity<Object> update(@PathVariable(name = "id") long id, @RequestBody Expense expense) throws Exception {
+		try {
+			this.expenseService.update(id, expense);
+			return ResponseEntity.ok().body(HttpStatus.OK);
+		} catch (DataIntegrityViolationException e) {
+			return ResponseEntity.internalServerError().body(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR,
+					"Either Label or Background and Font already exists"));
+		}
 	}
 
 	@DeleteMapping("/{id}")
-	void update(@PathVariable(name = "id") long id) throws Exception {
-		this.expenseService.delete(id);
+	ResponseEntity<Object> update(@PathVariable(name = "id") long id) throws Exception {
+		try {
+			this.expenseService.delete(id);
+			return ResponseEntity.ok().body(HttpStatus.OK);
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError()
+					.body(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage()));
+		}
 	}
 
 	@PostMapping("/search")
-	List<Expense> search(@RequestParam(name = "query") String criteria) {
-		return this.expenseService.search(criteria);
+	ResponseEntity<Object> search(@RequestParam(name = "query") String criteria) {
+		try {
+			List<Expense> list = this.expenseService.search(criteria);
+			return ResponseEntity.ok().body(list);
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError()
+					.body(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage()));
+		}
 	}
 
-	@GetMapping("/test")
+	@GetMapping("/health")
 	HttpStatus health() {
 		return HttpStatus.OK;
 	}

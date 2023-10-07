@@ -10,34 +10,37 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.springframework.lang.Nullable;
+
 @Entity
 public class Expense {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column
+	@Column(nullable = false)
 	private String item;
 
-	@Column
+	@Column(nullable = false)
 	private double amount;
 
-	@Column
+	@Column(nullable = false)
 	private Date paidOn;
 
-	@Column
+	@Column(nullable = false)
 	private String paidBy;
 
-	@Column
+	@Column(nullable = false)
 	private String paidWith;
 
-	@ManyToOne(targetEntity = Category.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity = Category.class, fetch = FetchType.EAGER, optional = false)
 	private Category category;
 
-	@ManyToOne(targetEntity = Tag.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity = Tag.class, fetch = FetchType.EAGER, optional = false)
 	private Tag tag;
 
 	@Column
+	@Nullable
 	private String comment;
 
 	public Long getId() {
